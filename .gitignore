@@ -1,0 +1,19 @@
+# Build e Compilação (Maven)
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Segredos e Variáveis de Ambiente
+.env
+.env.local
+!.env.example
+
+# Logs e arquivos do sistema
+*.log
+.DS_Store
