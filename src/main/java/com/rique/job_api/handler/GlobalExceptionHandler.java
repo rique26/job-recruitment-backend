@@ -37,6 +37,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+        ex.printStackTrace();
+
         ErrorResponse response = ErrorResponse.builder()
                 .message("Ocorreu um erro interno. Tente novamente mais tarde.")
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())

@@ -1,5 +1,6 @@
 package com.rique.job_api.auth.controller;
 
+import com.rique.job_api.auth.dto.request.RegisterCompanyRequestDto;
 import com.rique.job_api.auth.service.AuthService;
 import com.rique.job_api.auth.dto.request.RegisterCandidateRequestDto;
 import com.rique.job_api.exception.BadRequestException;
@@ -22,6 +23,12 @@ public class AuthController {
     @PostMapping("/register/candidate")
     public ResponseEntity<Void> registerCandidate(@Valid @RequestBody RegisterCandidateRequestDto dto) throws BadRequestException {
         authService.registerCandidate(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/register/company")
+    public ResponseEntity<Void> registerCompany(@Valid @RequestBody RegisterCompanyRequestDto dto) throws BadRequestException {
+        authService.registerCompany(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
