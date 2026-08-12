@@ -1,17 +1,14 @@
 package com.rique.job_api.auth.controller;
 
-import com.rique.job_api.auth.dto.request.RegisterCompanyRequestDto;
-import com.rique.job_api.auth.service.AuthService;
+import com.rique.job_api.auth.dto.request.LoginRequestDto;
 import com.rique.job_api.auth.dto.request.RegisterCandidateRequestDto;
-import com.rique.job_api.exception.BadRequestException;
+import com.rique.job_api.auth.dto.request.RegisterCompanyRequestDto;
+import com.rique.job_api.auth.dto.response.TokenResponseDto;
+import com.rique.job_api.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("v1/auth")
@@ -20,15 +17,21 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public TokenResponseDto login (@RequestBody @Valid LoginRequestDto loginRequestDto) {
+        return authService.login(loginRequestDto);
+    }
+
     @PostMapping("/register/candidate")
-    public ResponseEntity<Void> registerCandidate(@Valid @RequestBody RegisterCandidateRequestDto dto) throws BadRequestException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerCandidate(@Valid @RequestBody RegisterCandidateRequestDto dto) {
         authService.registerCandidate(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/register/company")
-    public ResponseEntity<Void> registerCompany(@Valid @RequestBody RegisterCompanyRequestDto dto) throws BadRequestException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerCompany(@Valid @RequestBody RegisterCompanyRequestDto dto) {
         authService.registerCompany(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
