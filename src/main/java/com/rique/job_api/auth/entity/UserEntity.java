@@ -1,6 +1,7 @@
 package com.rique.job_api.auth.entity;
 
 import com.rique.job_api.auth.enums.UserRole;
+import com.rique.job_api.config.AuthenticatedUser;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserEntity implements UserDetails {
+public class UserEntity implements UserDetails, AuthenticatedUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

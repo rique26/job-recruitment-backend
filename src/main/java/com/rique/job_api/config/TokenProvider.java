@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -22,15 +23,27 @@ public class TokenProvider {
 
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return buildToken(userDetails.getUsername());
+
+        String role = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(GrantedAuthority::getAuthority)
+                .orElseThrow(() -> new IllegalStateException("Usuário sem role definida"));
+
+        Long userId = (userDetails instanceof AuthenticatedUser authenticatedUser)
+                ? authenticatedUser.getId()
+                : null;
+
+        return buildToken(userDetails.getUsername(), userId, role);
     }
 
-    public String buildToken(String username) {
+    public String buildToken(String username, Long userId, String role) {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expirationTime);
 
         return Jwts.builder()
                 .subject(username)
+                .claim("userId", userId)
+                .claim("role", role)
                 .issuedAt(now)
                 .expiration(expirationDate)
                 .signWith(getSigningKey())
