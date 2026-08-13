@@ -29,8 +29,6 @@ public interface CandidateMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "experiences", ignore = true)
-    @Mapping(target = "candidateSkills", ignore = true)
     void updateEntityFromDto(UpdateCandidateRequestDto dto, @MappingTarget CandidateEntity candidate);
 
 }

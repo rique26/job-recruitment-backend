@@ -4,15 +4,11 @@ import com.rique.job_api.auth.entity.UserEntity;
 import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import com.rique.job_api.candidate.dto.response.CandidateProfileResponseDto;
 import com.rique.job_api.candidate.service.CandidateService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("v1/candidates")
