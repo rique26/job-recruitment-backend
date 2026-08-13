@@ -1,6 +1,7 @@
 package com.rique.job_api.candidate.entity;
 
 import com.rique.job_api.auth.entity.UserEntity;
+import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
