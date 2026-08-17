@@ -19,6 +19,7 @@ Desenvolver uma API de recrutamento aplicando conceitos de desenvolvimento backe
 * Flyway
 * Maven
 * Swagger / OpenAPI
+* * Render
 
 ## 📌 Funcionalidades
 
@@ -31,6 +32,11 @@ Desenvolver uma API de recrutamento aplicando conceitos de desenvolvimento backe
 * Candidaturas
 * Gerenciamento do processo seletivo
 * Documentação da API com Swagger
+
+## 🌐 Deploy
+
+* **Documentação (Swagger UI):** [Acessar Swagger](https://job-api-0tcq.onrender.com/swagger-ui/index.html)
+* **Ambiente de Produção (API Base):** [job-api-0tcq.onrender.com](https://job-api-0tcq.onrender.com)
 
 ## 📄 Status
 
