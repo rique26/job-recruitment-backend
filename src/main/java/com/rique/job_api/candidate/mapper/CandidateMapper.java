@@ -1,5 +1,6 @@
 package com.rique.job_api.candidate.mapper;
 
+import com.rique.job_api.candidate.dto.request.CreateExperienceRequestDto;
 import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import com.rique.job_api.candidate.dto.response.CandidateProfileResponseDto;
 import com.rique.job_api.candidate.dto.response.CandidateSkillResponseDto;
@@ -31,4 +32,7 @@ public interface CandidateMapper {
     @Mapping(target = "updatedAt", ignore = true)
     void updateEntityFromDto(UpdateCandidateRequestDto dto, @MappingTarget CandidateEntity candidate);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "candidate", ignore = true)
+    ExperienceEntity toExperienceEntity(CreateExperienceRequestDto dto);
 }

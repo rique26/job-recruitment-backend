@@ -1,10 +1,12 @@
 package com.rique.job_api.candidate.service;
 
+import com.rique.job_api.candidate.dto.request.CreateExperienceRequestDto;
 import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import com.rique.job_api.candidate.dto.response.CandidateProfileResponseDto;
 import com.rique.job_api.candidate.entity.CandidateEntity;
 import com.rique.job_api.candidate.mapper.CandidateMapper;
 import com.rique.job_api.candidate.repository.CandidateRepository;
+import com.rique.job_api.candidate.repository.ExperienceRepository;
 import com.rique.job_api.exception.BadRequestException;
 import com.rique.job_api.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class CandidateService {
 
     private final CandidateRepository candidateRepository;
     private final CandidateMapper candidateMapper;
+    private final ExperienceRepository experienceRepository;
 
     @Transactional(readOnly = true)
     public CandidateProfileResponseDto getMyProfile(Long userId) {
@@ -43,5 +46,28 @@ public class CandidateService {
     private CandidateEntity findByUserIdOrThrow(Long userId) {
         return candidateRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("Candidato não encontrado"));
+    }
+
+    @Transactional
+    public CandidateProfileResponseDto addExperience(Long userId, CreateExperienceRequestDto dto) {
+        var candidate = findByUserIdOrThrow(userId);
+
+        var experience = candidateMapper.toExperienceEntity(dto);
+        experience.setCandidate(candidate);
+
+        candidate.getExperiences().add(experience);
+        candidateRepository.save(candidate);
+
+        return candidateMapper.toDto(candidate);
+    }
+
+    public void deleteExperience(Long userId, Long experienceId) {
+        var candidate = findByUserIdOrThrow(userId);
+
+        var experience = experienceRepository.findByIdAndCandidateId(experienceId, candidate.getId())
+                .orElseThrow(() -> new NotFoundException("Experiência não encontrada ou não pertence a este candidato"));
+
+        candidate.getExperiences().remove(experience);
+        experienceRepository.delete(experience);
     }
 }
