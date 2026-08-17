@@ -5,6 +5,7 @@ import com.rique.job_api.auth.dto.request.RegisterCandidateRequestDto;
 import com.rique.job_api.auth.dto.request.RegisterCompanyRequestDto;
 import com.rique.job_api.auth.dto.response.TokenResponseDto;
 import com.rique.job_api.auth.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("v1/auth")
 @RequiredArgsConstructor
+@Tag(name = "Autenticação", description = "Auth")
 public class AuthController {
 
     private final AuthService authService;

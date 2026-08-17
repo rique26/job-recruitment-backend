@@ -22,7 +22,7 @@ spring:
 
 jwt:
   expiration: ${EXPIRATION-JWT:900000} # 15 minutes
-  key: ${JWT_KEY:IYBXaYk6gm8q/+ouXngtDLhp5VLepKLPOYRcsLjyme8=}
+  key: ${JWT_KEY}
 
 logging:
   level:

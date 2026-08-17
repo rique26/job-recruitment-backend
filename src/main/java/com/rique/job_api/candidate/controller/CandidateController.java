@@ -5,9 +5,9 @@ import com.rique.job_api.candidate.dto.request.CreateExperienceRequestDto;
 import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import com.rique.job_api.candidate.dto.response.CandidateProfileResponseDto;
 import com.rique.job_api.candidate.service.CandidateService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("v1/candidates")
 @RequiredArgsConstructor
+@Tag(name = "Candidatos", description = "Candidate")
 public class CandidateController {
 
     private final CandidateService candidateService;
