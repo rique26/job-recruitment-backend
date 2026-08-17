@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("v1/candidates")
 @RequiredArgsConstructor
-@Tag(name = "Candidatos", description = "Candidate")
+@Tag(name = "Candidate")
 public class CandidateController {
 
     private final CandidateService candidateService;
