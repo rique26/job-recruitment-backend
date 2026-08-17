@@ -19,7 +19,7 @@ Desenvolver uma API de recrutamento aplicando conceitos de desenvolvimento backe
 * Flyway
 * Maven
 * Swagger / OpenAPI
-* * Render
+* Render
 
 ## 📌 Funcionalidades
 
