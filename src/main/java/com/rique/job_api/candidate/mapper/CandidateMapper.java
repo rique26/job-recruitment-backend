@@ -14,6 +14,7 @@ import org.mapstruct.*;
 public interface CandidateMapper {
 
     // Converte a CandidateEntity para CandidateProfileResponseDto
+    @Mapping(target = "skills", source = "candidateSkills")
     CandidateProfileResponseDto toDto(CandidateEntity entity);
 
     // Mapeamentos específicos para as listas aninhadas (Skills e Experiences)

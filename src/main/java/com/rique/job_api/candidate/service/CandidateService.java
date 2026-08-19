@@ -1,14 +1,18 @@
 package com.rique.job_api.candidate.service;
 
+import com.rique.job_api.candidate.dto.request.AddSkillRequestDto;
 import com.rique.job_api.candidate.dto.request.CreateExperienceRequestDto;
 import com.rique.job_api.candidate.dto.request.UpdateCandidateRequestDto;
 import com.rique.job_api.candidate.dto.response.CandidateProfileResponseDto;
 import com.rique.job_api.candidate.entity.CandidateEntity;
+import com.rique.job_api.candidate.entity.CandidateSkillEntity;
 import com.rique.job_api.candidate.mapper.CandidateMapper;
 import com.rique.job_api.candidate.repository.CandidateRepository;
+import com.rique.job_api.candidate.repository.CandidateSkillRepository;
 import com.rique.job_api.candidate.repository.ExperienceRepository;
 import com.rique.job_api.exception.BadRequestException;
 import com.rique.job_api.exception.NotFoundException;
+import com.rique.job_api.skill.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,8 @@ public class CandidateService {
     private final CandidateRepository candidateRepository;
     private final CandidateMapper candidateMapper;
     private final ExperienceRepository experienceRepository;
+    private final CandidateSkillRepository candidateSkillRepository;
+    private final SkillRepository skillRepository;
 
     @Transactional(readOnly = true)
     public CandidateProfileResponseDto getMyProfile(Long userId) {
@@ -69,5 +75,27 @@ public class CandidateService {
 
         candidate.getExperiences().remove(experience);
         experienceRepository.delete(experience);
+    }
+
+    @Transactional
+    public CandidateProfileResponseDto addSkill(Long userId, AddSkillRequestDto dto) {
+        var candidate = findByUserIdOrThrow(userId);
+        var skill = skillRepository.findById(dto.skillId())
+                .orElseThrow(() -> new NotFoundException("Habilidade não encontrada"));
+
+        if (candidateSkillRepository.existsByCandidateIdAndSkillId(candidate.getId(), skill.getId())) {
+            throw new BadRequestException("Candidato já possui esta habilidade.");
+        }
+
+        var candidateSkill = CandidateSkillEntity.builder()
+                .candidate(candidate)
+                .skill(skill)
+                .level(dto.level())
+                .build();
+
+        candidate.getCandidateSkills().add(candidateSkill);
+        candidateRepository.save(candidate);
+
+        return candidateMapper.toDto(candidate);
     }
 }
