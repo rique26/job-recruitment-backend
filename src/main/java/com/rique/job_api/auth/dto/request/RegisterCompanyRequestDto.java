@@ -32,6 +32,9 @@ public record RegisterCompanyRequestDto(
         String description,
 
         @Size(max = 255)
-        String websiteUrl
+        String websiteUrl,
+
+        @Size(max = 50, message = "O porte da empresa deve ter no máximo 50 caracteres")
+        String size
 ) {
 }

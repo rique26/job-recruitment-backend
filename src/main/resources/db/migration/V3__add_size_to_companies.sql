@@ -1,0 +1,1 @@
+ALTER TABLE companies ADD COLUMN size VARCHAR(50);

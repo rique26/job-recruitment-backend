@@ -17,7 +17,7 @@ public interface CandidateMapper {
     @Mapping(target = "skills", source = "candidateSkills")
     CandidateProfileResponseDto toDto(CandidateEntity entity);
 
-    // Mapeamentos específicos para as listas aninhadas (Skills e Experiences)
+    // Mapeamentos específicos para as listas aninhadas (Sk ills e Experiences)
     @Mapping(target = "skillId", source = "skill.id")
     @Mapping(target = "name", source = "skill.name")
     CandidateSkillResponseDto toSkillDto(CandidateSkillEntity entity);

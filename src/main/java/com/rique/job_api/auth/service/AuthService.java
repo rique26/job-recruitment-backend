@@ -105,6 +105,7 @@ public class AuthService {
                 .corporateName(dto.corporateName().trim())
                 .description(SanitizationUtil.optionalText(dto.description()))
                 .websiteUrl(SanitizationUtil.optionalText(dto.websiteUrl()))
+                .size(SanitizationUtil.optionalText(dto.size()))
                 .build();
 
         companyRepository.save(company);
