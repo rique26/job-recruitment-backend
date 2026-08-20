@@ -98,4 +98,19 @@ public class CandidateService {
 
         return candidateMapper.toDto(candidate);
     }
+
+    @Transactional
+    public void removeSkill(Long userId, Long skillId) {
+        var candidate = findByUserIdOrThrow(userId);
+
+        // Valida se a skill está vinculada
+        if (!candidateSkillRepository.existsByCandidateIdAndSkillId(candidate.getId(), skillId)) {
+            throw new NotFoundException("Habilidade não vinculada ao perfil deste candidato");
+        }
+
+        candidate.getCandidateSkills()
+                .removeIf(candidateSkill -> candidateSkill.getSkill().getId().equals(skillId));
+
+        candidateSkillRepository.deleteByCandidateIdAndSkillId(candidate.getId(), skillId);
+    }
 }

@@ -65,4 +65,13 @@ public class CandidateController {
             @Valid @RequestBody AddSkillRequestDto dto) {
         return candidateService.addSkill(user.getId(), dto);
     }
+
+    @DeleteMapping("/me/skills/{skillId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_CANDIDATE')")
+    public void removeSkill(
+            @AuthenticationPrincipal UserEntity user,
+            @PathVariable Long skillId) {
+        candidateService.removeSkill(user.getId(), skillId);
+    }
 }
