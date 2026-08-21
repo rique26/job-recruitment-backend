@@ -51,12 +51,11 @@ src/main/java/com/rique/job_api/
 ├── auth/          # Autenticação e usuários
 ├── candidate/     # Candidatos
 ├── company/       # Empresas
-.
-.
-.
-├── common/        # Recursos compartilhados
-├── config/        # Configurações
-├── exception/     # Exceções
+├── job/           # Vagas de emprego
+├── skill/         # Habilidades
+├── common/        # Recursos compartilhados e utilitários
+├── config/        # Configurações (Segurança, OpenAPI, etc.)
+├── exception/     # Exceções personalizadas
 ├── handler/       # Tratamento global de exceções
 └── JobApiApplication.java
 ```
